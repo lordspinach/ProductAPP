@@ -7,5 +7,6 @@ namespace ProductAPP.DBLayer.Entities
         public string Name { get; set; }
         public int BrandId { get; set; }
         public float RFSize { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

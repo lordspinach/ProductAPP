@@ -72,5 +72,37 @@ namespace ProductAPP.API.Controllers
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Update(int id, ProductCreateRequest product)
+        {
+            try
+            {
+                _productService.UpdateProduct(id, _mapper.Map<ProductDTO>(product));
+                return Ok(new { Message = "Product was succesfully updated" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _productService.DeleteProduct(id);
+                return Ok(new { Message = "Product was succesfully updated" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ namespace ProductAPP.API
         public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddApplicationContext();
+            services.AddApplicationContext(Configuration.GetConnectionString("DataDbConnection"));
             services.AddDbDependency();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IHttpService, HttpService>();

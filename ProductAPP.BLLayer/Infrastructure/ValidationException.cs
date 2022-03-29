@@ -10,6 +10,8 @@ namespace ProductAPP.BLLayer.Infrastructure
     {
         public string Property { get; protected set; }
 
+        public ValidationException(string message) : base(message) { }
+
         public ValidationException(string message, string prop) : base(message)
         {
             Property = prop;

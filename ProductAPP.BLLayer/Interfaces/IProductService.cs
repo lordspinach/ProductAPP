@@ -12,6 +12,8 @@ namespace ProductAPP.BLLayer.Interfaces
         IEnumerable<ProductDTO> GetProducts();
         ProductDTO GetProduct(int id);
         void CreateProduct(ProductDTO product);
+        void UpdateProduct(int id, ProductDTO product);
+        void DeleteProduct(int id);
         void Dispose();
     }
 }

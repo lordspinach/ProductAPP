@@ -19,12 +19,12 @@ namespace ProductAPP.DBLayer.Repositories
 
         public IEnumerable<ProductDb> GetAll()
         {
-            return _context.Products;
+            return _context.Products.Where(s => s.IsDeleted == false).ToList();
         }
 
         public ProductDb Get(int id)
         {
-            return _context.Products.Find(id);
+            return _context.Products.Where(s => s.IsDeleted == false).Where(s => s.Id == id).FirstOrDefault();
         }
 
         public void Create(ProductDb product)
@@ -32,21 +32,30 @@ namespace ProductAPP.DBLayer.Repositories
             _context.Products.Add(product);
         }
 
-        public void Update(ProductDb product)
+        public void Update(int id, ProductDb product)
         {
+            product.Id = id;
             _context.Entry(product).State = EntityState.Modified;
         }
 
         public IEnumerable<ProductDb> Find(Func<ProductDb, Boolean> predicate)
         {
-            return _context.Products.Where(predicate).ToList();
+            return _context.Products.Where(s => s.IsDeleted == false).Where(predicate).ToList();
         }
 
         public void Delete(int id)
         {
-            ProductDb product = _context.Products.Find(id);
+            var product = _context.Products.Where(s => s.IsDeleted == false).Where(s => s.Id == id).FirstOrDefault();
             if (product != null)
-                _context.Products.Remove(product);
+            {
+                _context.Entry(product).State = EntityState.Deleted;
+            }
+                
+        }
+
+        public bool AnyId(int id)
+        {
+            return _context.Products.Any(p => p.Id == id);
         }
     }
 }
